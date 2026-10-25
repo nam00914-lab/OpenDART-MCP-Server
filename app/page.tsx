@@ -33,6 +33,13 @@ export default function Home() {
         각 도구의 <code>api_key</code> 인자로 넘겨야 합니다.
       </p>
 
+      <h2>추가 데이터(한국은행 ECOS · 기업마당)</h2>
+      <p>
+        Vercel 환경변수 <code>ECOS_API_KEY</code> · <code>BIZINFO_API_KEY</code>(와{" "}
+        <code>OPENDART_API_KEY</code>)를 넣으면 커넥터 URL 에 키 없이{" "}
+        <code>/api/mcp</code> 만으로 연결됩니다.
+      </p>
+
       <h2>MCP Endpoint</h2>
       <p>
         <code>/api/mcp</code>

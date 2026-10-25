@@ -4,6 +4,21 @@
 
 API를 발급받아 Claude 커스텀 커넥터로 바로 연결할 수 있습니다.
 
+## WIN-SET PRO 추가분 (한국은행 ECOS · 기업마당)
+
+이 포크는 OpenDART 도구에 **한국은행 ECOS**(업종 평균 재무비율 · 주요 지표 5개 도구)와 **기업마당**(정부지원사업 공고 검색 1개 도구)을 더했습니다.
+
+**Vercel 환경변수(권장 — 키가 URL 에 드러나지 않음)**
+
+| Key | 발급처 |
+|-----|--------|
+| `OPENDART_API_KEY` | https://opendart.fss.or.kr |
+| `ECOS_API_KEY` | https://ecos.bok.or.kr/api |
+| `BIZINFO_API_KEY` | https://www.bizinfo.go.kr/apiList.do |
+
+커넥터 URL = `https://<프로젝트>.vercel.app/api/mcp` (키를 URL 로 줄 때는 `?opendart_key=..&ecos_key=..&bizinfo_key=..`).
+테스트: `npx tsx scripts/test-extra-tools.ts`(네트워크 없이 파싱·필터·키 범위 검증).
+
 ## Features
 
 - **Open DART API 전부 지원**: Open DART에서 제공하는 API(83개)를 전부 지원합니다.

@@ -8,6 +8,9 @@ import { registerShareholdingTools } from "./shareholding";
 import { registerMajorEventTools } from "./major-events";
 import { registerSecuritiesRegTools } from "./securities-reg";
 import { registerWorkflowTools } from "./workflows";
+import { registerEcosTools } from "./ecos";
+import { registerBizinfoTools } from "./bizinfo";
+import { extraKeyStatus } from "@/lib/extra-keys";
 
 function registerConfigTools(server: McpServer) {
   // Each MCP request runs on a fresh server with no session state, so a key
@@ -54,6 +57,8 @@ function registerConfigTools(server: McpServer) {
           "https://opendart.fss.or.kr/ 에서 무료로 발급받을 수 있습니다.";
       }
 
+      const x = extraKeyStatus();
+      status += `\n한국은행 ECOS 키: ${x.ecos} / 기업마당 키: ${x.bizinfo}`;
       return { content: [{ type: "text" as const, text: status }] };
     }
   );
@@ -68,4 +73,6 @@ export function registerAllTools(server: McpServer) {
   registerShareholdingTools(server);   // Shareholding disclosures
   registerMajorEventTools(server);     // Major corporate events
   registerSecuritiesRegTools(server);  // Securities registration statements
+  registerEcosTools(server);           // 한국은행 ECOS (업종 평균 재무비율 · 주요 지표)
+  registerBizinfoTools(server);        // 기업마당 정부지원사업 공고
 }

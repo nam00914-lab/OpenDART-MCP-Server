@@ -1,6 +1,7 @@
 import { createMcpHandler } from "mcp-handler";
 import { registerAllTools } from "@/lib/tools";
 import { runWithRequestApiKey } from "@/lib/opendart/client";
+import { runWithExtraKeys } from "@/lib/extra-keys";
 
 const mcpHandler = createMcpHandler(
   (server) => {
@@ -19,7 +20,8 @@ const mcpHandler = createMcpHandler(
 async function handler(req: Request) {
   const url = new URL(req.url);
   const apiKey = url.searchParams.get("opendart_key");
-  return runWithRequestApiKey(apiKey, () => mcpHandler(req));
+  const extra = { ecos: url.searchParams.get("ecos_key") ?? undefined, bizinfo: url.searchParams.get("bizinfo_key") ?? undefined };
+  return runWithRequestApiKey(apiKey, () => runWithExtraKeys(extra, () => mcpHandler(req)));
 }
 
 // Without an explicit HEAD export, Next.js routes HEAD to the GET handler and
